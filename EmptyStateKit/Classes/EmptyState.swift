@@ -10,6 +10,7 @@ import UIKit
 
 public protocol EmptyStateDelegate: class {
     func emptyState(emptyState: EmptyState, didPressButton button: UIButton)
+    func emptyStateDidPressBackground(emptyState: EmptyState)
 }
 
 public protocol EmptyStateDataSource: class {
@@ -65,6 +66,8 @@ public class EmptyState {
         
         // Create empty state view
         emptyStateView = EmptyStateView.view
+        let tap = UITapGestureRecognizer(target: self, action: #selector(didPressActionBackground))
+        emptyStateView.addGestureRecognizer(tap)
         emptyStateView.isHidden = true
         emptyStateView.actionButton = { [weak self] (button) in
             self?.didPressActionButton(button)
@@ -102,5 +105,9 @@ extension EmptyState {
     
     private func didPressActionButton(_ button: UIButton) {
         delegate?.emptyState(emptyState: self, didPressButton: button)
+    }
+    
+    @objc private func didPressActionBackground() {
+        delegate?.emptyStateDidPressBackground(emptyState: self)
     }
 }

@@ -54,6 +54,10 @@ class MainViewController: UIViewController {
 
 extension MainViewController: EmptyStateDelegate {
     
+    func emptyStateDidPressBackground(emptyState: EmptyState) {
+        
+    }
+    
     func emptyState(emptyState: EmptyState, didPressButton button: UIButton) {
         view.emptyState.hide()
     }
